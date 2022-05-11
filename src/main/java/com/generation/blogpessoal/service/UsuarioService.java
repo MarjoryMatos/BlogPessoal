@@ -21,7 +21,7 @@ public class UsuarioService {
 
 	public Optional<Usuario> CadastrarUsuario(Usuario usuario) {
 
-		if (repository.findByUsuario(usuario.getEmailUsuario()).isPresent()) {
+		if (repository.findByEmailUsuario(usuario.getEmailUsuario()).isPresent()) {
 			return Optional.empty();
 		}
 
@@ -51,7 +51,7 @@ public class UsuarioService {
 
 	public Optional<UsuarioLogin> Logar(Optional<UsuarioLogin> user) {
 
-		Optional<Usuario> usuario = repository.findByUsuario(user.get().getEmailUsuario());
+		Optional<Usuario> usuario = repository.findByEmailUsuario(user.get().getEmailUsuario());
 
 		if (usuario.isPresent()) {
 			if (compararSenhas(user.get().getSenha(), usuario.get().getSenha())) {
@@ -70,7 +70,7 @@ public class UsuarioService {
 
 	public Optional<Usuario> atualizarUsuario(Usuario usuario) {
 		if (repository.findById(usuario.getId()).isPresent()) {
-			Optional<Usuario> buscarUsuario = repository.findByUsuario(usuario.getEmailUsuario());
+			Optional<Usuario> buscarUsuario = repository.findByEmailUsuario(usuario.getEmailUsuario());
 			if (buscarUsuario.isPresent()) {
 				if (buscarUsuario.get().getId() != usuario.getId())
 
